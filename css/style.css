@@ -1,0 +1,150 @@
+/* =====================================================================
+   style.css — Hinglish notes ke saath
+   Design idea: CIN ke 6 hisse 6 alag rang me dikhte hain. Valid ho ya invalid,
+   user ko turant dikhta hai "kaunsa hissa kya hai" aur "kaunsa galat hai".
+   ===================================================================== */
+:root {
+  --bg: #EEF2F7;          /* page ka background (halka cool grey-blue) */
+  --surface: #FFFFFF;     /* cards */
+  --ink: #101C33;         /* main text */
+  --muted: #5B6878;       /* secondary text */
+  --line: #D5DCE6;        /* borders */
+  --brand: #1E3A8A;       /* FileSure-jaisa deep blue */
+  --brand-ink: #FFFFFF;
+  --ok: #047857;  --ok-bg: #E3F5EC;
+  --bad: #B91C1C; --bad-bg: #FDE8E8;
+  /* 6 segment colours: text + halka background */
+  --c0: #6D28D9; --c0b: #EFE9FC;   /* Listed? */
+  --c1: #A16207; --c1b: #FBF0D5;   /* Industry */
+  --c2: #0369A1; --c2b: #DDF0FA;   /* State */
+  --c3: #047857; --c3b: #DFF4EA;   /* Year */
+  --c4: #BE185D; --c4b: #FBE3EE;   /* Type */
+  --c5: #475569; --c5b: #E6EAF0;   /* Reg no */
+  --radius: 10px;
+  --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.55 var(--sans); }
+.wrap { width: 100%; max-width: 1120px; margin: 0 auto; padding: 0 20px; }
+a { color: var(--brand); }
+h1, h2 { line-height: 1.2; margin: 0; letter-spacing: -0.01em; }
+.muted { color: var(--muted); }
+.small { font-size: 14px; }
+.center { text-align: center; }
+
+/* ---- header / footer ---- */
+.site.foot { margin-top: 56px; padding: 28px 0 40px; border-top: 1px solid var(--line); color: var(--muted); font-size: 14px; }
+.site.foot p { margin: 0; max-width: 70ch; }
+header.site { background: var(--surface); border-bottom: 1px solid var(--line); }
+.bar { display: flex; align-items: baseline; gap: 14px; height: 56px; align-items: center; }
+.brand { font-weight: 600; font-size: 19px; color: var(--brand); text-decoration: none; letter-spacing: -0.02em; }
+.tool-name { color: var(--muted); font-size: 14px; padding-left: 14px; border-left: 1px solid var(--line); }
+
+/* ---- hero ---- */
+.hero { padding: 40px 0 28px; max-width: 720px; }
+.hero h1 { font-size: clamp(28px, 5vw, 42px); font-weight: 600; }
+.lead { margin: 14px 0 0; font-size: 18px; color: var(--muted); max-width: 62ch; }
+
+/* ---- layout: desktop pe 2 column, mobile pe 1 ---- */
+.layout { display: grid; gap: 20px; grid-template-columns: 1fr; align-items: start; }
+@media (min-width: 900px) {
+  .layout { grid-template-columns: minmax(320px, 400px) 1fr; gap: 28px; }
+  .input-panel { position: sticky; top: 16px; }
+}
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; }
+
+/* ---- input ---- */
+.field-label { display: block; font-weight: 600; margin-bottom: 8px; }
+textarea {
+  width: 100%; min-height: 240px; resize: vertical; padding: 12px 14px;
+  font: 500 15px/1.6 var(--mono); color: var(--ink); background: #FAFBFD;
+  border: 1px solid var(--line); border-radius: 8px;
+}
+textarea::placeholder { color: #9AA6B8; }
+textarea:focus-visible, .btn:focus-visible, .seg-ctl button:focus-visible, a:focus-visible {
+  outline: 3px solid #93B4FF; outline-offset: 2px;
+}
+.hint { margin: 8px 0 16px; font-size: 14px; color: var(--muted); }
+.actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.privacy { margin: 16px 0 0; font-size: 13px; color: var(--muted); }
+.btn {
+  font: 500 15px var(--sans); padding: 10px 16px; border-radius: 8px; cursor: pointer;
+  border: 1px solid var(--line); background: var(--surface); color: var(--ink);
+}
+.btn:hover { border-color: #B6C1D1; background: #F6F8FB; }
+.btn.primary { background: var(--brand); border-color: var(--brand); color: var(--brand-ink); }
+.btn.primary:hover { background: #172F70; }
+.btn.quiet { border-color: transparent; color: var(--muted); }
+.btn.small { padding: 7px 12px; font-size: 14px; }
+.btn[hidden] { display: none; }
+
+/* ---- CIN anatomy (is design ka sabse yaadgaar hissa) ---- */
+.anatomy { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 4px; }
+.seg { display: inline-flex; flex-direction: column; align-items: center; gap: 3px; }
+.seg code {
+  font: 500 17px/1 var(--mono); padding: 7px 6px; border-radius: 6px; letter-spacing: 0.02em;
+}
+.seg small { font-size: 11.5px; color: var(--muted); line-height: 1.1; }
+.sep { font: 500 17px/1 var(--mono); padding: 7px 0; color: var(--muted); }
+.s0 code { color: var(--c0); background: var(--c0b); } .s1 code { color: var(--c1); background: var(--c1b); }
+.s2 code { color: var(--c2); background: var(--c2b); } .s3 code { color: var(--c3); background: var(--c3b); }
+.s4 code { color: var(--c4); background: var(--c4b); } .s5 code { color: var(--c5); background: var(--c5b); }
+/* galat hissa: laal background + underline, sirf rang pe depend nahi (a11y) */
+.seg.err code { color: var(--bad); background: var(--bad-bg); text-decoration: underline wavy var(--bad); text-underline-offset: 4px; }
+.seg.err small { color: var(--bad); font-weight: 500; }
+.anatomy.big .seg code { font-size: 19px; padding: 9px 8px; }
+.raw { font: 500 16px/1.4 var(--mono); word-break: break-all; }
+.raw.err { color: var(--bad); }
+
+/* ---- empty state ---- */
+.empty h2 { font-size: 22px; font-weight: 600; margin-bottom: 6px; }
+.empty .anatomy { margin: 22px 0 18px; }
+.legend { list-style: none; margin: 0 0 18px; padding: 0; display: grid; gap: 8px; }
+.legend li { display: flex; gap: 10px; align-items: baseline; font-size: 15px; }
+.legend .dot { flex: none; width: 10px; height: 10px; border-radius: 3px; transform: translateY(1px); }
+.legend strong { font-weight: 600; }
+
+/* ---- summary + toolbar ---- */
+.summary { padding: 16px 20px; margin-bottom: 14px; }
+.summary-text { margin: 0 0 12px; font-size: 17px; font-weight: 500; }
+.toolbar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between; }
+.seg-ctl { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.seg-ctl button { font: 500 14px var(--sans); background: var(--surface); border: 0; padding: 8px 14px; cursor: pointer; color: var(--muted); }
+.seg-ctl button + button { border-left: 1px solid var(--line); }
+.seg-ctl button[aria-pressed="true"] { background: var(--ink); color: #fff; }
+.seg-ctl span { opacity: .75; margin-left: 4px; font-variant-numeric: tabular-nums; }
+.notice { margin: 12px 0 0; padding: 10px 12px; background: #FFF6DB; border-radius: 8px; font-size: 14px; }
+
+/* ---- result rows ---- */
+.list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.row { background: var(--surface); border: 1px solid var(--line); border-left-width: 4px; border-radius: var(--radius); padding: 16px 18px; }
+.row.ok { border-left-color: var(--ok); } .row.no { border-left-color: var(--bad); }
+.row-head { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 12px; }
+.badge { font-size: 13px; font-weight: 600; padding: 3px 10px; border-radius: 999px; }
+.badge.ok { color: var(--ok); background: var(--ok-bg); } .badge.no { color: var(--bad); background: var(--bad-bg); }
+.tag { font-size: 13px; color: var(--muted); padding: 3px 10px; border: 1px solid var(--line); border-radius: 999px; }
+.num { margin-left: auto; font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px 18px; margin: 16px 0 0; }
+.facts dt { font-size: 13px; color: var(--muted); }
+.facts dd { margin: 2px 0 0; font-weight: 500; }
+.errors { margin: 14px 0 0; padding: 0; list-style: none; display: grid; gap: 6px; }
+.errors li { font-size: 15px; color: #7F1D1D; padding-left: 22px; position: relative; }
+.errors li::before { content: "!"; position: absolute; left: 0; top: 2px; width: 15px; height: 15px; border-radius: 50%; background: var(--bad); color: #fff; font-size: 11px; font-weight: 600; display: grid; place-items: center; }
+.row-note { margin: 12px 0 0; font-size: 14px; color: var(--muted); }
+.more { display: block; width: 100%; margin-top: 12px; }
+
+/* ---- chhota phone (<= 520px) ---- */
+@media (max-width: 520px) {
+  .wrap { padding: 0 14px; }
+  .hero { padding: 28px 0 20px; } .lead { font-size: 16px; }
+  .panel { padding: 16px; } .row { padding: 14px; }
+  .seg code { font-size: 15px; padding: 6px 4px; } .sep { font-size: 15px; }
+  .anatomy.big .seg code { font-size: 16px; padding: 7px 5px; }
+  .seg small { font-size: 10.5px; }
+  .actions .btn.primary { flex: 1 1 100%; }
+  .toolbar { flex-direction: column; align-items: stretch; }
+  .seg-ctl button { flex: 1; padding: 10px 6px; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }

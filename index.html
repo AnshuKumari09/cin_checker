@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CIN & LLPIN checker | Read any Indian company or LLP number</title>
+  <meta name="description" content="Paste a list of CINs and LLPINs. See which are valid, what each one means, and exactly what is wrong with the rest.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231E3A8A'/%3E%3Cpath d='M9 17l5 5 9-11' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Hinglish: upar ka header — brand + FileSure ka link -->
+  <header class="site">
+    <div class="wrap bar">
+      <a class="brand" href="https://filesure.in" rel="noopener">FileSure</a>
+      <span class="tool-name">CIN & LLPIN checker</span>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <h1>Read any company or LLP number in seconds</h1>
+      <p class="lead">Paste a list of CINs and LLPINs, one per line. You get back whether each is valid, what kind of entity it is, and exactly what is wrong with the ones that are not.</p>
+    </section>
+
+    <div class="layout">
+      <!-- ============ LEFT: input ============ -->
+      <section class="panel input-panel" aria-labelledby="in-label">
+        <label id="in-label" for="input" class="field-label">CINs and LLPINs</label>
+        <textarea id="input" spellcheck="false" autocapitalize="characters" autocomplete="off"
+          placeholder="L17110MH1973PLC019786&#10;U72900KA2019PTC123456&#10;AAA-1234"
+          aria-describedby="in-hint"></textarea>
+        <p id="in-hint" class="hint">One per line. Commas, spaces and Excel columns work too. Lowercase is fine.</p>
+
+        <div class="actions">
+          <button id="check" class="btn primary" type="button">Check numbers</button>
+          <button id="example" class="btn" type="button">Try an example</button>
+          <button id="clear" class="btn quiet" type="button" hidden>Clear</button>
+        </div>
+        <p class="privacy">Everything runs in your browser. Nothing you paste is sent anywhere.</p>
+      </section>
+
+      <!-- ============ RIGHT: results ============ -->
+      <section class="results-col" aria-live="polite" aria-label="Results">
+        <!-- Empty state: jab kuch paste nahi kiya -->
+        <div id="empty" class="panel empty">
+          <h2>How a CIN is put together</h2>
+          <p class="muted">Every company number is 21 characters, and each part means something. Here is a real one, taken apart.</p>
+          <div id="demo" class="anatomy big"></div>
+          <ul id="legend" class="legend"></ul>
+          <p class="muted small">An LLPIN is shorter: three letters, a hyphen, four digits (like AAA-1234). It does not carry a state or year.</p>
+        </div>
+
+        <!-- Results: jab list paste ho gayi -->
+        <div id="out" hidden>
+          <div class="summary panel">
+            <p id="summary-text" class="summary-text"></p>
+            <div class="toolbar">
+              <div class="seg-ctl" role="group" aria-label="Filter results">
+                <button type="button" data-f="all" aria-pressed="true">All <span id="c-all">0</span></button>
+                <button type="button" data-f="valid" aria-pressed="false">Valid <span id="c-valid">0</span></button>
+                <button type="button" data-f="invalid" aria-pressed="false">Invalid <span id="c-invalid">0</span></button>
+              </div>
+              <button id="csv" class="btn small" type="button">Download CSV</button>
+            </div>
+            <p id="notice" class="notice" hidden></p>
+          </div>
+          <ol id="list" class="list"></ol>
+          <button id="more" class="btn more" type="button" hidden></button>
+          <p id="none" class="muted center" hidden>Nothing to show for this filter.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site foot">
+    <div class="wrap">
+      <p>This tool checks the format and meaning of a number. It cannot tell you whether the company exists or what its status is today. For live MCA records, filings and directors, look the company up on <a href="https://filesure.in" rel="noopener">FileSure</a>.</p>
+    </div>
+  </footer>
+
+  <script src="js/cin-parser.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

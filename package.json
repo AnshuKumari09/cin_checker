@@ -1,0 +1,7 @@
+{
+  "name": "cin-llpin-checker",
+  "version": "1.0.0",
+  "description": "Paste CINs and LLPINs, see what each one means. Static site, no build step.",
+  "scripts": { "test": "node --test", "start": "npx serve ." },
+  "license": "MIT"
+}
